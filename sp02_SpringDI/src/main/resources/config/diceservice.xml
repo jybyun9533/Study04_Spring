@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+												 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<!-- 
+	1. 먼저 3개의 주사위 사용자 정의 bean 3개를 생성. >> diceA, diceB, diceC
+	2. player01 bean :: diceA 생성자 주입
+	   player02 bean :: diceB 생성자 주입
+	   player03 bean :: diceC Setter 주입
+	   player04 bean :: diceA Setter 주입
+	
+	<팀 과제>
+	1. IoC Container, DI Container가 뭘 의미하는지
+	2. 인터페이스를 사용해야지만 재사용성을 늘릴수 있다는 것을 Player02 코드로 반드시 이해
+	3. 2번을 통해서 재사용성이 증가했음에도 불구하고 DI Framework 가 필요한 이유를 정리
+	4. 최종적으로 diceservice.xml을 완성하셔서 Test 실행하시기 바랍니다.
+ -->
+ 
+ 	<!-- Dice Bean 3개 정의 :: 사용자 정의 Bean | 주입x, bean은 실체클래스(컴포넌트) -->
+ 	<bean id="diceA" class="spring.service.dice.impl.DiceAImpl"/>
+ 	<bean id="diceB" class="spring.service.dice.impl.DiceBImpl"/>
+ 	<bean id="diceC" class="spring.service.dice.impl.DiceCImpl"/>
+	
+ 	<!-- player02 bean 정의 :: 사용자 정의 bean | 주입(조건들) -->
+	<bean id="player01" class = "spring.service.dice.play.Player02">
+		<constructor-arg ref="diceA"/>
+	</bean>
+	<bean id="player02" class = "spring.service.dice.play.Player02">
+		<constructor-arg ref="diceB"/>
+	</bean>
+	<bean id="player03" class = "spring.service.dice.play.Player02">
+		<property name="dice" ref="diceC"/>
+	</bean>
+	<bean id="player04" class = "spring.service.dice.play.Player02">
+		<property name="dice" ref="diceA"/>
+	</bean>
+	
+	
+</beans>
+
+
+
+
+
+
+
